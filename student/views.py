@@ -26,3 +26,9 @@ class StudentListView(ListView):
     template_name = "students/students.html"
     context_object_name = 'students'
     
+    
+
+class StudentCreateView(CreateView):
+    model = Student
+    template_name = "students/add-student.html"
+

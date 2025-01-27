@@ -30,9 +30,24 @@ class Course(models.Model):
         return self.name
 
 class Student(models.Model):
+    
+    GENDER_CHOICES = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    )
+    COUNTRY_CHOICES = (        
+        ('Bangladesh', 'Bangladesh'),
+        ('United States', 'United States'),
+        ('United Kingdom', 'United Kingdom'),
+        ('Germany', 'Germany'),
+    )
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=10)
+    age = models.IntegerField(blank=True, null=True)
+    address = models.TextField(max_length=255,blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
+    nationality = models.CharField(max_length=50, choices=COUNTRY_CHOICES, blank=True, null=True)
+    phone = models.CharField(max_length=15)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=student_directory_path, default='profile_default.png')
     active = models.BooleanField(default=False)
