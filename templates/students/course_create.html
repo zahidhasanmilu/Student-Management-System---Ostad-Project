@@ -1,0 +1,88 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+CREATE COURSES | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">ADD COURSE</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Course</a></li>
+                        <li class="breadcrumb-item active">Add Course</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'course_create' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Course Details</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Duration (Month) </label>
+                                        <input type="number" name="duration" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fee</label>
+                                        <input type="number" name="fee" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="photo">Course Image</label>
+                                        <!-- {% if student.photo %}
+                                        <img src="{{ student.photo.url }}" alt="{{ student.name }}"
+                                            class="img-fluid mb-2" style="max-width: 200px;">
+                                        {% else %}
+                                        <p>No image available</p>
+                                        {% endif %} -->
+                                        <input type="file" name="image" id="photo" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="active">Active</label>
+                                        <div class="form-check">
+                                            <input type="checkbox" name="active" id="active" class="form-check-input">
+                                            <label for="active" class="form-check-label">Yes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

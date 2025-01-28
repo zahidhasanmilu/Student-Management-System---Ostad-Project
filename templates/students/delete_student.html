@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+DASHBOARD | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3>Are you sure you want to delete <strong class="text-danger">{{ student.name }}</strong>?</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    <a href="{% url 'update_student' student.id %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

@@ -16,10 +16,10 @@ COURSES | STUDENT MANAGEMENT SYSTEM
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Departments</h3>
+                    <h3 class="page-title">Courses</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Departments</li>
+                        <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Courses</li>
                     </ul>
                 </div>
                 <div class="col-auto text-right float-right ml-auto">
@@ -66,10 +66,10 @@ COURSES | STUDENT MANAGEMENT SYSTEM
                                         <td>{{forloop.counter}}</td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="student-details.html" class="avatar avatar-sm mr-2"><img
+                                                <a href="{% url 'course_detail' course.id %}" class="avatar avatar-sm mr-2"><img
                                                         class="avatar-img rounded-circle" src="{{ course.image.url}}"
                                                         alt="Image"></a>
-                                                <a href="student-details.html">{{course.name}}</a>
+                                                <a href="{% url 'course_detail' course.id %}">{{course.name}}</a>
                                             </h2>
                                         </td>
                                         <td>{{course.duration}}Month's</td>
@@ -77,10 +77,10 @@ COURSES | STUDENT MANAGEMENT SYSTEM
                                         <td>{{course.active}}</td>
                                         <td class="text-right">
                                             <div class="actions">
-                                                <a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">
+                                                <a href="{% url 'course_update' course.id %}" class="btn btn-sm bg-success-light mr-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-sm bg-danger-light">
+                                                <a href="{% url 'course_delete' course.id %}" class="btn btn-sm bg-danger-light">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </div>

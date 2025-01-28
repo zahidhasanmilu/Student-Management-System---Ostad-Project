@@ -1,0 +1,75 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{course.name|upper}} | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Course Details</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Course</a></li>
+                        <li class="breadcrumb-item active">Course Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>About Me</h4>
+                            <div class="media mt-3">
+                                <img src="{{course.image.url}}" class="mr-3" alt="...">
+                                <div class="media-body">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">Course Name : </span>
+                                            <span class="info-span">{{course.name}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Durations : </span>
+                                            <span class="info-span">{{course.duration}} Months</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Fee : </span>
+                                            <span class="info-span">{{course.fee}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Active : </span>
+                                            <span class="info-span">{% if course.active %}
+                                                Yes
+                                            {% else %}
+                                            Not                                            
+                                            {% endif %}</span>
+                                        </li>       
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <h5>Course Description:</h5>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
