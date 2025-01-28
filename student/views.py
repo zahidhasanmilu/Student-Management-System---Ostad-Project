@@ -32,10 +32,10 @@ class StudentListView(ListView):
     
     
 
-from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .models import Student, Course
+# from django.contrib import messages
+# from django.urls import reverse_lazy
+# from django.views.generic import CreateView
+# from .models import Student, Course
 
 class StudentCreateView(CreateView):
     model = Student
@@ -72,3 +72,10 @@ class StudentCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['courses'] = Course.objects.all()  # Add all courses for the dropdown
         return context
+    
+    
+
+class CourseList(ListView):
+    model = Course
+    context_object_name = 'courses_list'
+    template_name='students/courses.html'
