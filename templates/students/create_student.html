@@ -1,0 +1,151 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+ADD STUDENT | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="page-wrapper">
+   <div class="content container-fluid">
+      <div class="page-header">
+         <div class="row align-items-center">
+            <div class="col">
+               <h3 class="page-title">Add Students</h3>
+               <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="students.html">Students</a></li>
+                  <li class="breadcrumb-item active">Add Students</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-12">
+            <!-- messages start -->
+            {% if messages %}
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert"
+               {% endif %}>
+               <strong>
+                  <h3 class="text-center">{{ message }}</h3>
+               </strong>
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- messages end  -->
+            <div class="card">
+               <div class="card-body">
+                  <form method="POST" action="{% url 'create_student' %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <div class="row">
+                        <div class="col-12">
+                           <h5 class="form-title"><span>Student Information</span></h5>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="name">Full Name</label>
+                              <input type="text" name="name" id="name" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="email">Email</label>
+                              <input type="email" name="email" id="email" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="age">Age</label>
+                              <input type="number" name="age" id="age" class="form-control">
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="gender">Gender</label>
+                              <select name="gender" id="gender" class="form-control" required>
+                                 <option value="" disabled selected>Select Gender</option>
+                                 <option value="Male">Male</option>
+                                 <option value="Female">Female</option>
+                              </select>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="phone">Phone</label>
+                              <input name="phone" type="number" id="phone" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="course">Course</label>
+                              <select name="course" id="course" class="form-control" required>
+                                 <option value="" disabled selected>Select a course</option>
+                                 {% for course in courses %}
+                                 <option value="{{ course.id }}">{{ course.name }}</option>
+                                 {% endfor %}
+                              </select>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="nationality">Nationality</label>
+                              <select name="nationality" id="nationality" class="form-control" required>
+                                 <option value="" disabled selected>Select Nationality</option>
+                                 <option value="Bangladesh">Bangladesh</option>
+                                 <option value="United States">United States</option>
+                                 <option value="United Kingdom">United Kingdom</option>
+                                 <option value="Germany">Germany</option>
+                              </select>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="address">Address</label>
+                              <textarea name="address" id="address" class="form-control"></textarea>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="photo">Student Image</label>
+                              <input type="file" name="photo" id="photo" class="form-control">
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="active">Active</label>
+                              <div class="form-check">
+                                 <input type="checkbox" name="active" id="active" class="form-check-input">
+                                 <label for="active" class="form-check-label">Yes</label>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-12">
+                           <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock content %}

@@ -42,7 +42,7 @@ class Student(models.Model):
         ('Germany', 'Germany'),
     )
     name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     age = models.IntegerField(blank=True, null=True)
     address = models.TextField(max_length=255,blank=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
