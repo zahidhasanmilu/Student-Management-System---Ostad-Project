@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, CreateView, DeleteView, ListView, UpdateView, DetailView
 
 from .models import Course, Student
@@ -26,6 +26,8 @@ class Home(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['students'] = self.get_queryset()
+        context['active_students'] = Student.objects.all().filter(active=True)[
+            0:7]
         context['courses'] = Course.objects.all()
         return context
 # ------------------Home Dashboard End--------------------------------
@@ -96,14 +98,13 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "students/create_student.html"
     fields = ['name', 'email', 'age', 'gender', 'phone',
               'course', 'nationality', 'address', 'photo', 'active']
-    success_url = reverse_lazy('all_student')
+    # success_url = reverse_lazy('student_details',)
     pk_url_kwarg = 'id'
 
     def form_valid(self, form):
         # Check if email already exists
         form.instance.user = self.request.user
         form.instance.active = 'active' in self.request.POST
-
         # Get the student's name and add a success message
         name = form.instance.name
         messages.success(self.request, f'{
@@ -126,6 +127,12 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         context['courses'] = Course.objects.all()
         context['student_updates'] = True
         return context
+
+    def get_success_url(self):
+        # Custom logic for the success URL
+
+        return reverse_lazy('student_details', kwargs={'id': self.object.pk})
+
 # ------------------Student Update End--------------------------------
 
 
@@ -215,7 +222,6 @@ class CourseUpdate(UpdateView):
     model = Course
     template_name = 'students/course_update.html'
     fields = ['name', 'duration', 'fee', 'active', 'image']
-    success_url = reverse_lazy('all_course')
     pk_url_kwarg = 'id'
 
     def form_valid(self, form):
@@ -228,6 +234,10 @@ class CourseUpdate(UpdateView):
     def form_invalid(self, form):
         # Re-render the form with existing data and errors
         return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        # Custom logic for the success URL
+        return reverse_lazy('course_detail', kwargs={'id': self.object.pk})
 
 # def course_update(request, id):
 #     course = Course.objects.get(id=id)

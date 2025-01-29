@@ -14,6 +14,21 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
+                     <!-- messages start -->
+                     {% if messages %}
+                     {% for message in messages %}
+                     <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                         role="alert" {% endif %}>
+                         <strong>
+                             <h5 class="text-center">{{ message }}</h5>
+                         </strong>
+                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     {% endfor %}
+                     {% endif %}
+                     <!-- messages end  -->
                     <h3 class="page-title">Course Details</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="">Course</a></li>
@@ -54,6 +69,10 @@
                                         </li>       
                                     </ul>
                                 </div>
+                            </div>
+                            <div>
+                                <a href="{% url 'course_update' course.id %}" class="btn btn-primary btn-sm"><i
+                                        class="fa fa-edit"></i> Edit</a>
                             </div>
                             <hr>
 

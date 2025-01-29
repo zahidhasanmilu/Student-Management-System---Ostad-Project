@@ -21,6 +21,9 @@ def user_signup(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
+        name = name.lower()
+        email = email.lower()
+
         # Validate username
         if len(name) < 3 or len(name) > 15:
             messages.info(
@@ -62,7 +65,7 @@ def user_signup(request):
                 obj.set_password(password)
                 obj.save()
                 messages.success(request, 'User Create Succefully')
-                return HttpResponse('successfully created')
+                return redirect('user_login')
         else:
             messages.info(request, "password doesn't match")
             return redirect('user_signup')
@@ -75,6 +78,9 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        username = username.lower()
+        password = password.lower()
+
         # Check if the username exists in the database
         if not User.objects.filter(username=username).exists():
             messages.warning(
@@ -85,7 +91,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Logged in successfully')
+            messages.success(request, f'{username} - Logged in successfully')
             return redirect('index')
         else:
             messages.warning(request, f'{username} Invalid credentials.')

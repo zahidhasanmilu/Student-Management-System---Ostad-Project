@@ -3463,3 +3463,16 @@ table.table-inbox tbody tr.checked {
 		height: 355px;
 	}
 }
+
+.card-img-top {
+	height: 200px;
+	object-fit: cover;
+ }
+ .card {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+ }
+ .card-body {
+	flex-grow: 1;
+ }
