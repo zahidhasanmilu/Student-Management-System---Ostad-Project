@@ -3,9 +3,9 @@
 
 
 {% block title %}
-   DASHBOARD | STUDENT MANAGEMENT SYSTEM
+DASHBOARD | STUDENT MANAGEMENT SYSTEM
 {% endblock title %}
-   
+
 
 
 {% block content %}
@@ -14,7 +14,27 @@
       <div class="page-header">
          <div class="row">
             <div class="col-sm-12">
-               <h3 class="page-title">Welcome Admin!</h3>
+               <!-- messages start -->
+               {% if messages %}
+               {% for message in messages %}
+               <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                  role="alert" {% endif %}>
+                  <strong>
+                     <h5 class="text-center">{{ message }}</h5>
+                  </strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               {% endfor %}
+               {% endif %}
+               <!-- messages end  -->
+               {% if request.user.is_authenticated %}
+               <h3 class="page-title">Welcome {{user.username|capfirst}}!</h3>
+               {% else %}
+               <h3 class="page-title">Welcome Guest!</h3>
+               {% endif %}
+
                <ul class="breadcrumb">
                   <li class="breadcrumb-item active">Dashboard</li>
                </ul>
@@ -24,19 +44,19 @@
       <div class="row">
          <a href="{% url 'all_student' %}" class="col-xl-3 col-sm-6 col-12 d-flex text-decoration-none">
             <div class="card bg-one w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="db-info">
-                            <h3>{{ students.count }}</h3>
-                            <h6>Students</h6>
-                        </div>
-                    </div>
-                </div>
+               <div class="card-body">
+                  <div class="db-widgets d-flex justify-content-between align-items-center">
+                     <div class="db-icon">
+                        <i class="fas fa-user-graduate"></i>
+                     </div>
+                     <div class="db-info">
+                        <h3>{{ students.count }}</h3>
+                        <h6>Students</h6>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </a>
+         </a>
          <!-- <div class="col-xl-3 col-sm-6 col-12 d-flex">
             <div class="card bg-two w-100">
                <div class="card-body">
@@ -54,19 +74,19 @@
          </div> -->
          <a href="{% url 'all_course' %}" class="col-xl-3 col-sm-6 col-12 d-flex text-decoration-none">
             <div class="card bg-three w-100">
-                <div class="card-body">
-                    <div class="db-widgets d-flex justify-content-between align-items-center">
-                        <div class="db-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="db-info">
-                            <h3>{{ courses.count }}</h3>
-                            <h6>Courses</h6>
-                        </div>
-                    </div>
-                </div>
+               <div class="card-body">
+                  <div class="db-widgets d-flex justify-content-between align-items-center">
+                     <div class="db-icon">
+                        <i class="fas fa-building"></i>
+                     </div>
+                     <div class="db-info">
+                        <h3>{{ courses.count }}</h3>
+                        <h6>Courses</h6>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </a>
+         </a>
          <!-- <div class="col-xl-3 col-sm-6 col-12 d-flex">
             <div class="card bg-four w-100">
                <div class="card-body">
@@ -232,11 +252,13 @@
                      </li>
                      <li class="feed-item">
                         <div class="feed-date">Mar 21</div>
-                        <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
+                        <span class="feed-text"><a>Justin Lee</a> participated in <a
+                              href="invoice.html">"Carrom"</a></span>
                      </li>
                      <li class="feed-item">
                         <div class="feed-date">Feb 2</div>
-                        <span class="feed-text"><a>Justin Lee</a>attended internation conference in <a href="profile.html">"St.John School"</a></span>
+                        <span class="feed-text"><a>Justin Lee</a>attended internation conference in <a
+                              href="profile.html">"St.John School"</a></span>
                      </li>
                      <li class="feed-item">
                         <div class="feed-date">Apr 13</div>
@@ -244,7 +266,8 @@
                      </li>
                      <li class="feed-item">
                         <div class="feed-date">Mar 21</div>
-                        <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
+                        <span class="feed-text"><a>Justin Lee</a> participated in <a
+                              href="invoice.html">"Carrom"</a></span>
                      </li>
                   </ul>
                </div>
@@ -287,4 +310,3 @@
    </footer>
 </div>
 {% endblock content %}
-   

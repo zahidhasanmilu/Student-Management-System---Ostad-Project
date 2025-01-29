@@ -65,16 +65,17 @@ def user_signup(request):
     return render(request, 'user_auth/signup.html')
 
 
-def user_login(request):    
+def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+
         # Check if the username exists in the database
         if not User.objects.filter(username=username).exists():
-            messages.error(request, 'Username does not exist.')
+            messages.warning(
+                request, f'"{username}" - Username does not exist.')
             return redirect('user_login')
-        
+
         # Authenticate the user with the provided credentials
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -82,16 +83,50 @@ def user_login(request):
             messages.success(request, 'Logged in successfully')
             return redirect('index')
         else:
-            # Check if the password is incorrect
-            user_obj = User.objects.filter(username=username).first()
-            if user_obj is not None and not user_obj.check_password(password):
-                messages.error(request, 'Invalid password.')
-            else:
-                messages.error(request, 'Invalid username or password.')
-    
+            messages.warning(request, f'{username} Invalid credentials.')
+            return redirect('user_login')
     return render(request, 'user_auth/login.html')
 
-# def user_logout(request):
-#     logout(request)
-#     messages.success(request, 'Logged out successfully')
-#     return redirect('user_login')
+
+def user_logout(request):
+    logout(request)
+    # messages.success(request, 'Logged out successfully')
+    return redirect('user_login')
+
+
+def change_password(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, 'You must be logged in to change your password.')
+        return redirect('login')
+
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_new_password = request.POST.get('confirm_new_password')
+
+        # Validate current password
+        if not request.user.check_password(current_password):
+            messages.error(request, 'Current password is incorrect.')
+            return redirect('change_password')
+
+        # Validate new password and confirmation
+        if new_password != confirm_new_password:
+            messages.error(request, 'New passwords do not match.')
+            return redirect('change_password')
+
+        # Validate new password length (minimum 3 characters)
+        if len(new_password) < 3:
+            messages.error(request, 'Password must be at least 3 characters long.')
+            return redirect('change_password')
+
+        # Update password
+        request.user.set_password(new_password)
+        request.user.save()
+
+        # Update session to prevent logout after password change
+        update_session_auth_hash(request, request.user)
+
+        messages.success(request, 'Your password has been updated successfully!')
+        return redirect('index')
+
+    return render(request, 'students/change_password.html')
