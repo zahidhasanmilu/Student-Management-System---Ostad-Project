@@ -5,11 +5,15 @@ from student.forms import StudentForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from django.contrib.auth.decorators import login_required
+from user_auth.utils import logout_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
+@logout_required
 def user_signup(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -65,6 +69,7 @@ def user_signup(request):
     return render(request, 'user_auth/signup.html')
 
 
+@logout_required
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -88,15 +93,18 @@ def user_login(request):
     return render(request, 'user_auth/login.html')
 
 
+@login_required
 def user_logout(request):
     logout(request)
     # messages.success(request, 'Logged out successfully')
     return redirect('user_login')
 
 
+@login_required
 def change_password(request):
     if not request.user.is_authenticated:
-        messages.warning(request, 'You must be logged in to change your password.')
+        messages.warning(
+            request, 'You must be logged in to change your password.')
         return redirect('login')
 
     if request.method == 'POST':
@@ -116,7 +124,8 @@ def change_password(request):
 
         # Validate new password length (minimum 3 characters)
         if len(new_password) < 3:
-            messages.error(request, 'Password must be at least 3 characters long.')
+            messages.error(
+                request, 'Password must be at least 3 characters long.')
             return redirect('change_password')
 
         # Update password
@@ -126,7 +135,8 @@ def change_password(request):
         # Update session to prevent logout after password change
         update_session_auth_hash(request, request.user)
 
-        messages.success(request, 'Your password has been updated successfully!')
+        messages.success(
+            request, 'Your password has been updated successfully!')
         return redirect('index')
 
     return render(request, 'students/change_password.html')

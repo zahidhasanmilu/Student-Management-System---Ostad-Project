@@ -36,7 +36,6 @@
                <ul>
                   <li><a href="{% url 'all_course' %}">Course List</a></li>
                   <li><a href="{% url 'course_create' %}">Course Add</a></li>
-                  <li><a href="edit-department.html">Course Edit</a></li>
                </ul>
             </li>
             <!-- <li class="submenu">
@@ -90,10 +89,7 @@
                <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span
                      class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="login.html">Login</a></li>
-                  <li><a href="register.html">Register</a></li>
-                  <li><a href="forgot-password.html">Forgot Password</a></li>
-                  <li><a href="error-404.html">Error Page</a></li>
+                  <li><a href="{% url 'change_password' %}">Change Password</a></li>
                </ul>
             </li>
             <!-- <li>

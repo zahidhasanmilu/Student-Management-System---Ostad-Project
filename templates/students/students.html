@@ -59,6 +59,7 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                               <th>Email</th>
                               <th>Mobile Number</th>
                               <th>Is Active?</th>
+                              <th>Who Created</th>
                               <th>Enroll Date</th>
                               <th class="text-right">Action</th>
                            </tr>
@@ -84,6 +85,7 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                                  {% else %}
                                  No
                                  {% endif %} </td>
+                              <td>{{student.user.username}}</td>
                               <td>{{student.created_at|date:"Y-m-d"}}</td>
                               <td class="text-right">
                                  <div class="actions">

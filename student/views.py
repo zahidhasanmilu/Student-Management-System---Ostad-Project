@@ -3,6 +3,8 @@ from django.views.generic.edit import CreateView
 from django.contrib import messages
 from student.forms import StudentForm, CourseForm
 from django.shortcuts import redirect, render, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DeleteView, ListView, UpdateView, DetailView
@@ -13,7 +15,7 @@ from .models import Course, Student
 # Create your views here.
 
 # ------------------Home Dashboard start--------------------------------
-class Home(TemplateView):
+class Home(LoginRequiredMixin, TemplateView):
     template_name = "index.html"
 
     def get_queryset(self):
@@ -29,20 +31,16 @@ class Home(TemplateView):
 # ------------------Home Dashboard End--------------------------------
 
 
-
-
 # ------------------Student List Start--------------------------------
-class StudentListView(ListView):
+class StudentListView(LoginRequiredMixin, ListView):
     model = Student
     template_name = "students/students.html"
     context_object_name = 'students'
 # ------------------Student List End--------------------------------
 
 
-
-
 # ------------------Student Create Start--------------------------------
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     template_name = 'students/create_student.html'
     # Redirect to the student list page after successful submission
@@ -83,10 +81,8 @@ class StudentCreateView(CreateView):
 # ------------------Student Create End--------------------------------
 
 
-
-
 # ------------------Student Details Start--------------------------------
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     model = Student
     template_name = "students/student_details.html"
     context_object_name = 'student'
@@ -94,10 +90,8 @@ class StudentDetailView(DetailView):
 # ------------------Student Details End--------------------------------
 
 
-
-
 # ------------------Student Update Start--------------------------------
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     template_name = "students/create_student.html"
     fields = ['name', 'email', 'age', 'gender', 'phone',
@@ -135,10 +129,8 @@ class StudentUpdateView(UpdateView):
 # ------------------Student Update End--------------------------------
 
 
-
-
 # ------------------Student Delete start--------------------------------
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     template_name = "students/delete_student.html"
     success_url = reverse_lazy('all_student')
@@ -151,7 +143,6 @@ class StudentDeleteView(DeleteView):
 # ------------------Student Delete End--------------------------------
 
 
-
 # ------------------Course List start--------------------------------
 class CourseList(ListView):
     model = Course
@@ -160,9 +151,8 @@ class CourseList(ListView):
 # ------------------Course List End--------------------------------
 
 
-
-
 # ------------------Course Details start--------------------------------
+@login_required
 def course_detail(request, id):
     course = Course.objects.get(id=id)
     return render(request, 'students/course_details.html', {'course': course})
@@ -187,7 +177,7 @@ class CourseCreate(CreateView):
             self.request, "Course creation failed. Please check the form for errors.")
         return self.render_to_response(self.get_context_data(form=form))
 
-
+# @login_required
 # def course_create(request):
 #     # form = CourseForm()
 #     if request.method == 'POST':
@@ -218,8 +208,6 @@ class CourseCreate(CreateView):
 #         return redirect('all_course')
 #     return render(request,'students/course_create.html',)
 # ------------------Course Create End--------------------------------
-
-
 
 
 # ------------------Course Update start--------------------------------
@@ -271,10 +259,8 @@ class CourseUpdate(UpdateView):
 # ------------------Course Update End--------------------------------
 
 
-
-
 # ------------------Course Delete Start--------------------------------
-
+# @login_required
 # def course_delete(request, id):
 #     course = Course.objects.get(id=id)
 #     course.delete()
