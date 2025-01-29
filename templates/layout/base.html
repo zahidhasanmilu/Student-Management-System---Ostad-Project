@@ -121,7 +121,11 @@
                            <img src="{% static 'assets/img/profiles/avatar-01.jpg' %}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
-                           <h6>Ryan Taylor</h6>
+                           {% if request.user.is_authenticated %}
+                           <h6>{{user.username}}</h6>   
+                            {% else %}
+                            <h6>AAA</h6>               
+                           {% endif %}
                            <p class="text-muted mb-0">Administrator</p>
                         </div>
                      </div>

@@ -18,6 +18,7 @@ urlpatterns = [
     path('course_update/<int:id>/', views.CourseUpdate.as_view(), name='course_update'),#CourseUpdate
     # path('course_update/<int:id>/', views.course_update, name='course_update'),
     
-    path('course_delete/<int:id>/', views.course_delete, name='course_delete'), #course_delete
+    path('course_delete/<int:id>/', views.CourseDelete.as_view(), name='course_delete'), #CourseDelete
+    # path('course_delete/<int:id>/', views.course_delete, name='course_delete'), 
     
 ]

@@ -1,0 +1,58 @@
+{% extends 'layout/auth_base.html' %}
+{% load static %}
+
+{% block title %}
+SIGNUP | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+{% block content %}
+<div class="login-left">
+    <img class="img-fluid" src="{% static 'assets/img/logo-white.png' %}" alt="Logo">
+</div>
+<div class="login-right">
+    <div class="login-right-wrap">
+        <h1>Register</h1>
+        <p class="account-subtitle">Access to our dashboard</p>
+        <!-- messages start -->
+        {% if messages %}
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" 
+        {% endif %}>
+            <strong>
+                <h5 class="text-center">{{ message }}</h5>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- messages end  -->
+
+        <form method="POST" action="{% url 'user_signup' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" name="name" type="text" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="email" type="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" type="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="confirm_password" type="password" placeholder="Confirm Password">
+            </div>
+            <div class="form-group mb-0">
+                <button class="btn btn-primary btn-block" type="submit">Register</button>
+            </div>
+        </form>
+
+
+
+        <div class="text-center dont-have">Already have an account? <a href="{% url 'user_login' %}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
