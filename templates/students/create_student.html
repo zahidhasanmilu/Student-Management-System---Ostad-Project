@@ -45,6 +45,7 @@
             <!-- messages end  -->
             <div class="card">
                <div class="card-body">
+                  {% if student.user.id == request.user.id %}
                   <form method="POST" action="{% if student_updates %}{% url 'update_student' student.id %}{% else %}{% url 'create_student' %}{% endif %}"
                    enctype="multipart/form-data">
                      {% csrf_token %}
@@ -52,7 +53,7 @@
                         <div class="col-12">
                            <h5 class="form-title"><span>Student Information</span></h5>
                         </div>
-
+                       
                         <div class="col-12 col-sm-6">
                            <div class="form-group">
                               <label for="name">Full Name</label>
@@ -153,6 +154,17 @@
                         </div>
                      </div>
                   </form>
+                  {% else %}
+                  <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+                     <h2>You are not able to update this student</h2>
+
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 
+                  
+                  {% endif %}
 
                </div>
             </div>

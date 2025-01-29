@@ -1,11 +1,13 @@
 import re
-from django.shortcuts import redirect, render, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
+from django.urls import reverse
 from student.models import Student
 from student.forms import StudentForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.views.generic import ListView, CreateView, DeleteView,DetailView
 
 from django.contrib.auth.decorators import login_required
 from user_auth.utils import logout_required
@@ -143,6 +145,25 @@ def change_password(request):
 
         messages.success(
             request, 'Your password has been updated successfully!')
-        return redirect('index')
+        return redirect(reverse('profile', kwargs={'username': request.user.username}))
 
     return render(request, 'students/change_password.html')
+
+
+    
+class User_Profile(ListView):
+    model = Student
+    template_name = "user_auth/profile.html"
+    context_object_name = "students"  # Makes template code cleaner
+
+    def get_queryset(self):
+        """Retrieve all student profiles associated with the given username."""
+        username = self.kwargs.get("username")
+        self.profile_user = get_object_or_404(User, username=username)  # Store user object
+        return Student.objects.filter(user=self.profile_user)
+
+    def get_context_data(self, **kwargs):
+        """Add the profile user to the context."""
+        context = super().get_context_data(**kwargs)
+        context["profile_user"] = self.profile_user  # Avoid duplicate queries
+        return context

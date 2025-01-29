@@ -5,7 +5,7 @@ from student.models import Course, Student
 
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'phone', 'course', 'photo', 'active', 'user', 'created_at', 'updated_at']
+    list_display = ['id','user','name', 'email', 'phone', 'course', 'photo', 'active', 'user', 'created_at', 'updated_at']
     search_fields = ['name', 'email', 'phone', 'course', 'photo', 'active', 'user', 'created_at', 'updated_at']
     list_filter = ['name', 'email', 'phone', 'course', 'photo', 'active', 'user', 'created_at', 'updated_at']
     list_editable = ['email', 'phone', 'course', 'photo', 'active', 'user',]

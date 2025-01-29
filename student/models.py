@@ -51,7 +51,7 @@ class Student(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=student_directory_path, default='profile_default.png')
     active = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_students')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

@@ -1,0 +1,178 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{user.username|upper}} | STUDENT MANAGEMENT SYSTEM
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="page-wrapper">
+   <div class="content container-fluid">
+      <div class="page-header">
+         <div class="row">
+            <div class="col">
+               <h3 class="page-title">Profile</h3>
+               <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Profile</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-12">
+            <!-- messages start -->
+            {% if messages %}
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                role="alert" {% endif %}>
+                <strong>
+                    <h5 class="text-center">{{ message }}</h5>
+                </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- messages end  -->
+            <div class="profile-header">
+               <div class="row align-items-center">
+                  <div class="col-auto profile-image">
+                     <a href="#">
+                        <img class="rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-02.jpg' %}">
+                     </a>
+                  </div>
+                  <div class="col ml-md-n2 profile-user-info">
+                     <h4 class="user-name mb-0">{{profile_user.username|capfirst}}</h4>
+                     <h6 class="text-muted">{{profile_user.email}}</h6>
+
+                  </div>
+                  <div class="col-auto profile-btn">
+                     <a href="#" class="btn btn-primary">
+                        Edit
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <div class="profile-menu">
+               <ul class="nav nav-tabs nav-tabs-solid">
+                  <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+                  </li>
+               </ul>
+            </div>
+            <div class="tab-content profile-tab-cont">
+               <div class="tab-pane fade show active" id="per_details_tab">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div id="table-view">
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <div class="card card-table">
+                                    <div class="card-body">
+                                       <div class="table-responsive">
+                                          <table class="table table-hover table-bordered table-center mb-0 datatable">
+                                             <thead class="thead-dark">
+                                                <tr>
+                                                   <th>ID</th>
+                                                   <th>Name</th>
+                                                   <th>Age</th>
+                                                   <th>Course</th>
+                                                   <th>Email</th>
+                                                   <th>Mobile Number</th>
+                                                   <th>Is Active?</th>
+                                                   <th>Who Created</th>
+                                                   <th>Enroll Date</th>
+                                                   {% if profile_user.id == request.user.id %}
+                                                   <th class="text-right">Action</th>
+                                                   {% endif %}                                                   
+                                                </tr>
+                                             </thead>
+                                             <tbody>
+                                                {% for student in students  %}
+                                                   <tr>
+                                                      <td>{{ forloop.counter }}</td>
+                                                      <td>
+                                                         <h2 class="table-avatar">
+                                                            <a href="{% url 'student_details' student.id %}" class="avatar avatar-sm mr-2">
+                                                               <img class="avatar-img rounded-circle" src="{{ student.photo.url }}" alt="Image">
+                                                            </a>
+                                                            <a href="{% url 'student_details' student.id %}">{{student.name}}</a>
+                                                         </h2>
+                                                      </td>
+                                                      <td>{{student.age}}</td>
+                                                      <td>{{student.course.name}}</td>
+                                                      <td>{{student.email}}</td>
+                                                      <td>{{student.phone}}</td>
+                                                      <td>{% if student.active %} Yes {% else %} No {% endif %}</td>
+                                                      <td>{{student.user.username}}</td>
+                                                      <td>{{student.created_at|date:"Y-m-d"}}</td>
+                                                      
+                                                      {% if profile_user.id == request.user.id %}
+                                                      <td class="text-right">
+                                                         
+                                                         <div class="actions">
+                                                            <a href="{% url 'update_student' student.id %}" class="btn btn-sm bg-success-light mr-2">
+                                                               <i class="fas fa-pen"></i>
+                                                            </a>
+                                                            <a href="{% url 'delete_student' student.id %}" class="btn btn-sm bg-danger-light">
+                                                               <i class="fas fa-trash"></i>
+                                                            </a>
+                                                         </div>
+                                                         
+                                                      </td>
+                                                      {% endif %}
+                                                   </tr>
+                                                {% endfor %}
+                                             </tbody>
+                                          </table>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+               <div id="password_tab" class="tab-pane fade">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">Change Password</h5>
+                        <div class="row">
+                           <div class="col-md-10 col-lg-6">
+                              <form action="{% url 'change_password' %}" method="POST">
+                                 {% csrf_token %}
+                                 <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input name="current_password" type="password" class="form-control">
+                                 </div>
+                                 <div class="form-group">
+                                    <label>New Password</label>
+                                    <input name="new_password" type="password" class="form-control">
+                                 </div>
+                                 <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input name="confirm_new_password" type="password" class="form-control">
+                                 </div>
+                                 <button class="btn btn-primary" type="submit">Save Changes</button>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock content %}

@@ -75,10 +75,13 @@
                                     </ul>
                                 </div>
                             </div>
+                            {% if student.user.username == request.user.username %}
                             <div>
                                 <a href="{% url 'update_student' student.id %}" class="btn btn-primary btn-sm"><i
                                         class="fa fa-edit"></i> Edit</a>
                             </div>
+                            {% endif %}
+                            
                             <hr>
 
                             <div class="row mt-2">
