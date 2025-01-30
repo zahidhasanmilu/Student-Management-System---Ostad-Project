@@ -154,16 +154,125 @@
                         </div>
                      </div>
                   </form>
-                  {% else %}
+                  {% elif student_updates %}
                   <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
                      <h2>You are not able to update this student</h2>
 
                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                      </button>
-                 </div>
-                 
-                  
+                 </div>   
+                 {% else %}
+
+                  <form method="POST" action="{% if student_updates %}{% url 'update_student' student.id %}{% else %}{% url 'create_student' %}{% endif %}"
+                   enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <div class="row">
+                        <div class="col-12">
+                           <h5 class="form-title"><span>Student Information</span></h5>
+                        </div>
+                       
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="name">Full Name</label>
+                              <input type="text" name="name" id="name" value="{{student.name}}" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="email">Email</label>
+                              <input type="email" name="email" value="{{student.email}}" id="email" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="age">Age</label>
+                              <input type="number" name="age" value="{{student.age}}" id="age" class="form-control">
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="gender">Gender</label>
+                              <select name="gender" id="gender" class="form-control" required>
+                                 <option value="" disabled>Select Gender</option>
+                                 <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                                 <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                              </select>
+                              
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="phone">Phone</label>
+                              <input name="phone" value="{{student.phone}}" type="number" id="phone" class="form-control" required>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="course">Course</label>
+                              <select name="course" id="course" class="form-control" required>
+                                 <option value="" disabled>Select a course</option>
+                                 {% for course in courses %}
+                                    <option value="{{ course.id }}" {% if student.course.id == course.id %}selected{% endif %}>{{ course.name }}</option>
+                                 {% endfor %}
+                              </select>                              
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="nationality">Nationality</label>
+                              <select name="nationality" id="nationality" class="form-control" required>
+                                 <option value="" disabled>Select Nationality</option>
+                                 <option value="Bangladesh" {% if student.nationality == "Bangladesh" %}selected{% endif %}>Bangladesh</option>
+                                 <option value="United States" {% if student.nationality == "United States" %}selected{% endif %}>United States</option>
+                                 <option value="United Kingdom" {% if student.nationality == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
+                                 <option value="Germany" {% if student.nationality == "Germany" %}selected{% endif %}>Germany</option>
+                              </select>
+                              
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="address">Address</label>
+                              <textarea name="address" id="address" class="form-control">{{ student.address }}</textarea>
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="photo">Student Image</label>
+                              {% if student.photo %}
+                              <img src="{{ student.photo.url }}" alt="{{ student.name }}" class="img-fluid mb-2" style="max-width: 200px;">
+                              {% else %}
+                              <p>No image available</p>
+                              {% endif %}
+                              <input type="file" name="photo" id="photo" class="form-control">
+                           </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                           <div class="form-group">
+                              <label for="active">Active</label>
+                              <div class="form-check">
+                                 <input type="checkbox" name="active" id="active" class="form-check-input" {% if student.active %}checked{% endif %}>
+                                 <label for="active" class="form-check-label">Yes</label>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-12">
+                           <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                     </div>
+                  </form>
+               
                   {% endif %}
 
                </div>

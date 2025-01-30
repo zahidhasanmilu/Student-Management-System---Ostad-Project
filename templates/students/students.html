@@ -56,7 +56,7 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                                  <th>Name</th>
                                  <th>Age</th>
                                  <th>Course</th>
-                                 <th>Email</th>
+                                 <!-- <th>Email</th> -->
                                  <th>Mobile Number</th>
                                  <th>Is Active?</th>
                                  <th>Who Created</th>
@@ -67,7 +67,7 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                            <tbody>
                               {% for student in students %}
                                  <tr>
-                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ student.id }}</td>
                                     <td>
                                        <h2 class="table-avatar">
                                           <a href="{% url 'student_details' student.id %}" class="avatar avatar-sm mr-2">
@@ -78,7 +78,7 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                                     </td>
                                     <td>{{student.age}}</td>
                                     <td>{{student.course.name}}</td>
-                                    <td>{{student.email}}</td>
+                                    <!-- <td>{{student.email}}</td> -->
                                     <td>{{student.phone}}</td>
                                     <td>{% if student.active %} Yes {% else %} No {% endif %}</td>
                                     <td>{{student.user.username}}</td>
@@ -125,9 +125,10 @@ DASHBOARD | STUDENT MANAGEMENT SYSTEM
                      <div class="card-body">
                         <h5 class="card-title text-center">{{ student.name }}</h5>
                         <p class="card-text small"> <!-- Smaller text -->
+                           <strong>Id:</strong> {{ student.id }}<br>
                            <strong>Age:</strong> {{ student.age }}<br>
                            <strong>Course:</strong> {{ student.course.name }}<br>
-                           <strong>Email:</strong> {{ student.email }}<br>
+                           <!-- <strong>Email:</strong> {{ student.email }}<br> -->
                            <strong>Phone:</strong> {{ student.phone }}<br>
                            <strong>Active:</strong> {% if student.active %} Yes {% else %} No {% endif %}<br>
                            <strong>Created By:</strong> {{ student.user.username }}<br>
