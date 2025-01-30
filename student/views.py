@@ -65,8 +65,7 @@ class StudentCreateView(LoginRequiredMixin, CreateView):
         # Use form.data to retrieve the submitted email
         email = form.data.get('email')
         if email and Student.objects.filter(email=email).exists():
-            messages.error(self.request, f'Email "{
-                           email}" already exists. Please use a different email.')
+            messages.error(self.request, f'Email {email} already exists. Please use a different email.')
 
         # # Add a general error message
         # messages.error(
@@ -107,8 +106,7 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.active = 'active' in self.request.POST
         # Get the student's name and add a success message
         name = form.instance.name
-        messages.success(self.request, f'{
-                         name} - Student has been successfully updated!')
+        messages.success(self.request, f'{name} - Student has been successfully updated!')
 
         return super().form_valid(form)
 
@@ -116,8 +114,7 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         # Check if the email already exists
         email = form.data.get('email')
         if email and Student.objects.filter(email=email).exclude(pk=self.object.pk).exists():
-            messages.error(self.request, f'The email "{
-                           email}" is already registered. Please use a different one.')
+            messages.error(self.request, f'The email {email} is already registered. Please use a different one.')
         # Re-render the form with existing data and errors
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -175,8 +172,7 @@ class CourseCreate(CreateView):
 
     def form_valid(self, form):
         name = form.data.get('name')
-        messages.success(self.request, f'{
-                         name} - Course has been successfully created!')
+        messages.success(self.request, f'{name} - Course has been successfully created!')
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -227,8 +223,7 @@ class CourseUpdate(UpdateView):
     def form_valid(self, form):
         # Get the course's name and add a success message
         name = form.instance.name
-        messages.success(self.request, f'{
-                         name} - Course has been successfully updated!')
+        messages.success(self.request, f'{name} - Course has been successfully updated!')
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -287,7 +282,6 @@ class CourseDelete(DeleteView):
     def post(self, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
-        messages.success(self.request, f'"{
-                         self.object.name}" Course has been deleted successfully')
+        messages.success(self.request, f'"{self.object.name}" Course has been deleted successfully')
         return redirect(self.get_success_url())
 # ------------------Course Delete End--------------------------------
