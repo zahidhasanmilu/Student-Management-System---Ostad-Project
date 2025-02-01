@@ -45,8 +45,8 @@ http://127.0.0.1:8000/admin/
 ### Admin Panel Login
 ```
 Use the superuser credentials to log in.
-- **Username:** `admin`
-- **Password:** `123`
+- Username: admin
+- Password: 123
 ```
 
 ## Features
