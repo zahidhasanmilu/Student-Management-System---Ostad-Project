@@ -19,7 +19,7 @@ class Command(BaseCommand):
         courses = Course.objects.all()  # বিদ্যমান কোর্স গুলো নিন
         users = User.objects.all()  # বিদ্যমান ইউজার গুলো নিন
 
-        for _ in range(20):  # ২০টি ফেক স্টুডেন্ট তৈরি করুন
+        for _ in range(40):  # ৪০টি ফেক স্টুডেন্ট তৈরি করুন
             Student.objects.create(
                 name=fake.name(),
                 email=fake.unique.email(),
@@ -34,4 +34,4 @@ class Command(BaseCommand):
                 # ফটো ডিফল্ট `profile_default.png` ব্যবহার হবে
             )
 
-        self.stdout.write(self.style.SUCCESS('Successfully created 20 fake students'))
+        self.stdout.write(self.style.SUCCESS('Successfully created 40 fake students'))

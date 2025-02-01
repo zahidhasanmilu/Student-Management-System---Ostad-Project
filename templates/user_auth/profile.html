@@ -3,7 +3,7 @@
 
 
 {% block title %}
-{{user.username|upper}} | STUDENT MANAGEMENT SYSTEM
+{{user.username|capfirst}} | Student Management System
 {% endblock title %}
 
 
@@ -51,17 +51,13 @@
                      <h6 class="text-muted">{{profile_user.email}}</h6>
 
                   </div>
-                  <div class="col-auto profile-btn">
-                     <a href="#" class="btn btn-primary">
-                        Edit
-                     </a>
-                  </div>
+                 
                </div>
             </div>
             <div class="profile-menu">
                <ul class="nav nav-tabs nav-tabs-solid">
                   <li class="nav-item">
-                     <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                     <a class="nav-link active" data-toggle="tab" href="#per_details_tab">{{request.user.username|capfirst}}'s Students</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>

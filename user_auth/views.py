@@ -151,7 +151,7 @@ def change_password(request):
 
 
     
-class User_Profile(ListView):
+class User_Profile(LoginRequiredMixin,ListView):
     model = Student
     template_name = "user_auth/profile.html"
     context_object_name = "students"  # Makes template code cleaner
