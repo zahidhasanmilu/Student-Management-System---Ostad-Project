@@ -4,11 +4,11 @@ html {
 }
 
 body {
-	background-color: #fff;
-	color: #333;
-	font-family: 'Poppins', sans-serif;
+	background-color: #ffffff;
+	color: #130000;
+	font-family: 'Ubuntu', sans-serif;
 	font-size: 1rem;
-	height: 100%;
+	height: 90%;
 	line-height: 1.5;
 	overflow-x: hidden;
 }
@@ -1625,10 +1625,10 @@ div.dataTables_wrapper div.dataTables_info {
 	height: 60px;
 	padding: 0 20px;
 	position: relative;
-	width: 320px;
+	width: 250px;
 	z-index: 1;
 	transition: all 0.2s ease-in-out;
-	background-color: #f7f7fa;
+	background-color: #770000;
 	border-bottom: 1px solid #efefef;
 	border-right: 1px solid #ececf5;
 	display: flex;
@@ -1911,15 +1911,15 @@ footer p {
 -----------------------*/
 
 .sidebar {
-	background-color: #f7f7fa;
-	border-right: 1px solid #ececf5;
+	background-color: #000000;
+	border-right: 1px solid #000000;
 	bottom: 0;
 	left: 0;
 	margin-top: 0;
 	position: fixed;
 	top: 60px;
 	transition: all 0.2s ease-in-out 0s;
-	width: 320px;
+	width: 250px;
 	z-index: 1001;
 }
 
@@ -1948,7 +1948,7 @@ footer p {
 }
 
 .sidebar-menu li a {
-	color: #6f6f6f;
+	color: #ffffff;
 	display: block;
 	font-size: 16px;
 	height: auto;
@@ -2149,7 +2149,7 @@ footer p {
 }
 
 .page-wrapper {
-	margin-left: 320px;
+	margin-left: 245px;
 	padding-top: 60px;
 	position: relative;
 	transition: all 0.4s ease;

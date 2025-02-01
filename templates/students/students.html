@@ -1,11 +1,28 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}
 All Students | Student Management System
 {% endblock title %}
 
 {% block content %}
+<style>
+   /* টেবিলের কলামের ফাকা স্পেস কমানো */
+   .table th, .table td {
+       padding: 3px 10px; /* কমপ্যাক্ট প্যাডিং */
+        /* ফন্ট সাইজ ছোট করা */
+   }
+
+   /* ফন্ট সাইজ আরও ছোট করা */
+   .table td, .table th {
+       font-size: 13px; /* আরও ছোট ফন্ট সাইজ */
+   }
+
+   .table th {
+       text-align: center; /* টেবিলের হেডারে সেন্টার টেক্সট */
+   }
+</style>
 <div class="page-wrapper">
    <div class="content container-fluid">
       <div class="page-header">
@@ -76,7 +93,7 @@ All Students | Student Management System
                                        </h2>
                                     </td>
                                     <td>{{student.age}}</td>
-                                    <td>{{student.course.name}}</td>
+                                    <td>{{student.course.name|char:12 }}</td>
                                     <!-- <td>{{student.email}}</td> -->
                                     <td>{{student.phone}}</td>
                                     <td>{% if student.active %} Yes {% else %} No {% endif %}</td>
