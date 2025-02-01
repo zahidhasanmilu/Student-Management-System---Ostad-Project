@@ -31,12 +31,6 @@
             <a href="javascript:void(0);" id="toggle_btn">
             <i class="fas fa-align-left"></i>
             </a>
-            <!-- <div class="top-nav-search">
-               <form>
-                  <input type="text" class="form-control" placeholder="Search here">
-                  <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-               </form>
-            </div> -->
             <a class="mobile_btn" id="mobile_btn">
             <i class="fas fa-bars"></i>
             </a>
@@ -66,7 +60,6 @@
                      </div>
                      <a class="dropdown-item" href="{% url 'profile' username=user.username %}">My Profile</a>
                      <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
-                     <!-- <a class="dropdown-item" href="inbox.html">Inbox</a> -->
                      <a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a>
                   </div>
                </li>
@@ -82,8 +75,23 @@
                <p>Copyright © 2025 MinionsMilu.</p>
             </footer>
          </div>
+
             
       </div>
+      <script>
+         $(document).ready(function () {
+             // Sidebar Toggle Function
+             $('#toggle_btn').click(function () {
+                 $('.sidebar').toggleClass('active');
+             });
+      
+             // Mobile Sidebar Toggle
+             $('#mobile_btn').click(function () {
+                 $('.main-wrapper').toggleClass('slide-nav');
+             });
+         });
+      </script>
+      
       
       <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
       <script src="{% static 'assets/js/popper.min.js' %}"></script>
