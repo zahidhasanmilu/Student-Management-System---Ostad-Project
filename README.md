@@ -23,14 +23,9 @@ cd Student-Management-System---Ostad-Project
 
 ### Install Required Dependencies
 ```bash
-pipenv install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### again Install Required Dependencies
-```bash
-pipenv install -r requirements.txt
-
-```
 
 ### Run the Development Server
 ```bash
@@ -42,6 +37,7 @@ Open your browser and go to:
 ```
 http://127.0.0.1:8000/admin/
 ```
+
 ### Admin Panel Login
 ```
 Use the superuser credentials to log in.
