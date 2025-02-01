@@ -26,18 +26,11 @@ cd Student-Management-System---Ostad-Project
 pipenv install -r requirements.txt
 ```
 
-### Run Migrations
+### again Install Required Dependencies
 ```bash
-python manage.py migrate
-```
+pipenv install -r requirements.txt
 
-### Create Superuser
-```bash
-python manage.py createsuperuser
 ```
-Provide the following credentials when prompted:
-- **Username:** `admin`
-- **Password:** `123`
 
 ### Run the Development Server
 ```bash
@@ -49,7 +42,12 @@ Open your browser and go to:
 ```
 http://127.0.0.1:8000/admin/
 ```
+### Admin Panel Login
+```
 Use the superuser credentials to log in.
+- **Username:** `admin`
+- **Password:** `123`
+```
 
 ## Features
 - User authentication and authorization
