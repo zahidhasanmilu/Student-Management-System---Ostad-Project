@@ -54,7 +54,7 @@ Use the superuser credentials to log in.
 ## Features
 - User authentication and authorization
 - Student registration and management
-- Course and grade management
+- Course
 - Admin dashboard
 
 ## Technologies Used
@@ -62,5 +62,4 @@ Use the superuser credentials to log in.
 - Django
 - SQLite (default database, can be changed)
 
-## License
-This project is licensed under the MIT License.
+
