@@ -51,7 +51,7 @@ Use the superuser credentials to log in.
 
 ## Features
 - User authentication and authorization
-- Student registration and management
+- Student add and student management
 - Course
 - Admin dashboard
 
