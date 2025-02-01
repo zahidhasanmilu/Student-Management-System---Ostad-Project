@@ -9,3 +9,8 @@ cd .\Student-Management-System---Ostad-Projec
 
 #install Requiremnets file
 pipenv install -r requirements.txt
+
+#Admin superuser 
+username =  admin
+password = 123
+
