@@ -42,7 +42,7 @@ http://127.0.0.1:8000/admin/
 ```
 Use the superuser credentials to log in.
 - Username: admin
-- Password: 123
+<!-- - Password: #A123 --> - Not Now -Please Create your account
 ```
 
 ## Features
